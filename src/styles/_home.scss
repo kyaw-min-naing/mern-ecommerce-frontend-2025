@@ -1,0 +1,88 @@
+@use "admin-styles/mixin" as mixin;
+@use "./variables";
+
+.home {
+  padding: 2rem 5%;
+  display: flex;
+  flex-direction: column;
+  height: calc(100vh - 4rem);
+  width: 100%;
+
+  > section {
+    width: 100%;
+    height: 15rem;
+    margin: auto;
+    background: url("../assets/images/cover.png") no-repeat center / cover;
+  }
+
+  > h1 {
+    @include mixin.heading(1px);
+    margin-top: 3rem;
+    @include mixin.flex(row, space-between, center);
+  }
+
+  .findmore {
+    font-size: 1rem;
+  }
+
+  > main {
+    width: 100%;
+    flex: 1;
+    display: flex;
+    gap: 1rem;
+    overflow-x: auto;
+
+    &::-webkit-scrollbar {
+      display: none;
+    }
+  }
+}
+
+.product-card {
+  width: 17.5rem;
+  height: 18rem;
+  padding: 1rem;
+  flex: none;
+  @include mixin.flex(column, flex-start, center, 4px);
+  position: relative;
+  background-color: white;
+
+  &:hover > div {
+    opacity: 1;
+  }
+
+  img {
+    @include mixin.square(calc(18.75rem - 8.75rem));
+    object-fit: cover;
+    margin: 0;
+  }
+
+  span {
+    font-weight: 700;
+    font-size: 1.1rem;
+  }
+
+  > div {
+    opacity: 0;
+    position: absolute;
+    @include mixin.square(100%);
+    top: 0;
+    left: 0;
+    background-color: #0000006b;
+    @include mixin.flex;
+    button {
+      @include mixin.flex;
+      @include mixin.square(3rem);
+      border-radius: 100%;
+      border: none;
+      background-color: variables.$color3;
+      cursor: pointer;
+      color: variables.$color1;
+      font-size: 1.1rem;
+      transition: all 0.3s;
+      &:hover {
+        rotate: 20deg;
+      }
+    }
+  }
+}
