@@ -41,7 +41,6 @@ const DashboardTable: React.FC<DashboardTableProps> = ({ data }) => {
   const TableComponent = TableHOC<DataType>({
     columns,
     data,
-    containerClassName: "transaction-box",
     showPagination: false,
   });
   return <TableComponent />;
