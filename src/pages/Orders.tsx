@@ -21,7 +21,7 @@ type DataType = {
 const columns: ColumnDef<DataType>[] = [
   {
     accessorKey: "_id",
-    header: "IDs",
+    header: "ID",
   },
   {
     accessorKey: "quantity",
