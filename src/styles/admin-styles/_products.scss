@@ -99,7 +99,7 @@
       }
 
       > img {
-        @include mixin.square(5rem);
+        @include mixin.square(6rem);
         object-fit: cover;
         border-radius: 5px;
       }

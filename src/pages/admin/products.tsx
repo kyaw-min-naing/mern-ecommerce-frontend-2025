@@ -1,97 +1,19 @@
-// import { ReactElement, useState } from "react";
-// import { FaPlus } from "react-icons/fa";
-// import { Link } from "react-router-dom";
-// import { Column } from "react-table";
-// import AdminSidebar from "../../components/admin/AdminSidebar";
-// import TableHOC from "../../components/admin/TableHOC";
-
-// interface DataType {
-//   photo: ReactElement;
-//   name: string;
-//   price: number;
-//   stock: number;
-//   action: ReactElement;
-// }
-
-// const columns: Column<DataType>[] = [
-//   {
-//     Header: "Photo",
-//     accessor: "photo",
-//   },
-//   {
-//     Header: "Name",
-//     accessor: "name",
-//   },
-//   {
-//     Header: "Price",
-//     accessor: "price",
-//   },
-//   {
-//     Header: "Stock",
-//     accessor: "stock",
-//   },
-//   {
-//     Header: "Action",
-//     accessor: "action",
-//   },
-// ];
-
-// const img =
-//   "https://images.unsplash.com/photo-1542291026-7eec264c27ff?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxzZWFyY2h8Mnx8c2hvZXN8ZW58MHx8MHx8&w=1000&q=804";
-
-// const img2 = "https://m.media-amazon.com/images/I/514T0SvwkHL._SL1500_.jpg";
-
-// const arr: Array<DataType> = [
-//   {
-//     photo: <img src={img} alt="Shoes" />,
-//     name: "Puma Shoes Air Jordan Cook Nigga 2023",
-//     price: 690,
-//     stock: 3,
-//     action: <Link to="/admin/product/sajknaskd">Manage</Link>,
-//   },
-
-//   {
-//     photo: <img src={img2} alt="Shoes" />,
-//     name: "Macbook",
-//     price: 232223,
-//     stock: 213,
-//     action: <Link to="/admin/product/sdaskdnkasjdn">Manage</Link>,
-//   },
-// ];
-
-// const Products = () => {
-//   const [rows, setRows] = useState<DataType[]>(arr);
-
-//   const Table = TableHOC<DataType>(
-//     columns,
-//     rows,
-//     "dashboard-product-box",
-//     "Products",
-//     rows.length > 6
-//   )();
-
-//   return (
-//     <div className="admin-container">
-//       <AdminSidebar />
-//       <main>{Table}</main>
-//       <Link to="/admin/product/new" className="create-product-btn">
-//         <FaPlus />
-//       </Link>
-//     </div>
-//   );
-// };
-
-// export default Products;
-
-import { ReactElement } from "react";
+import { ReactElement, useEffect, useState } from "react";
 import AdminSidebar from "../../components/admin/AdminSidebar";
-import TableHOC from "../../components/admin/TableHOC";
 import { ColumnDef } from "@tanstack/react-table";
 import { Link } from "react-router-dom";
 import { FaPlus } from "react-icons/fa";
+import { useSelector } from "react-redux";
+// import { UserReducerInitialState } from "../../types/reducer-types";
+import { useAllProductQuery } from "../../redux/api/productAPI";
+import { CustomError } from "../../types/api-types";
+import toast from "react-hot-toast";
+import { RootState, server } from "../../redux/store";
+import { Skeleton } from "../../components/Loader";
+import TableHOC from "../../components/admin/TableHOC";
 
 interface DataType {
-  photo: string;
+  photo: ReactElement;
   name: string;
   price: number;
   stock: number;
@@ -100,120 +22,72 @@ interface DataType {
 
 const columns: ColumnDef<DataType>[] = [
   {
-    accessorKey: "photo",
     header: "Photo",
-    cell: ({ row }) => (
-      <img
-        src={row.original.photo}
-        alt={row.getValue("name")}
-        width={50}
-        height={50}
-      />
-    ),
+    accessorKey: "photo",
+    cell: (info) => info.getValue(),
   },
   {
-    accessorKey: "name",
     header: "Name",
+    accessorKey: "name",
   },
   {
-    accessorKey: "price",
     header: "Price",
+    accessorKey: "price",
   },
   {
-    accessorKey: "stock",
     header: "Stock",
+    accessorKey: "stock",
   },
   {
-    accessorKey: "action",
     header: "Action",
-    cell: ({ row }) => row.original.action,
+    accessorKey: "action",
+    cell: (info) => info.getValue(),
   },
 ];
 
-const img =
-  "https://images.unsplash.com/photo-1542291026-7eec264c27ff?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxzZWFyY2h8Mnx8c2hvZXN8ZW58MHx8MHx8&w=1000&q=804";
+const Products = () => {
+  const { user } = useSelector((state: RootState) => state.userReducer);
 
-const img2 = "https://m.media-amazon.com/images/I/514T0SvwkHL._SL1500_.jpg";
+  const userId = user?._id;
 
-const productData: DataType[] = [
-  {
-    photo: img,
-    name: "Air Jorden",
-    price: 680,
-    stock: 3,
-    action: <Link to="/admin/product/2838">Manage</Link>,
-  },
-  {
-    photo: img2,
-    name: "Macbook",
-    price: 2300,
-    stock: 212,
-    action: <Link to="/admin/product/983200">Manage</Link>,
-  },
-  {
-    photo: img,
-    name: "Air Jorden",
-    price: 680,
-    stock: 3,
-    action: <Link to="/admin/product/2838">Manage</Link>,
-  },
-  {
-    photo: img2,
-    name: "Macbook",
-    price: 2300,
-    stock: 212,
-    action: <Link to="/admin/product/983200">Manage</Link>,
-  },
-  {
-    photo: img,
-    name: "Air Jorden",
-    price: 680,
-    stock: 3,
-    action: <Link to="/admin/product/2838">Manage</Link>,
-  },
-  {
-    photo: img2,
-    name: "Macbook",
-    price: 2300,
-    stock: 212,
-    action: <Link to="/admin/product/983200">Manage</Link>,
-  },
-  {
-    photo: img,
-    name: "Air Jorden",
-    price: 680,
-    stock: 3,
-    action: <Link to="/admin/product/2838">Manage</Link>,
-  },
-  {
-    photo: img,
-    name: "Air Jorden",
-    price: 680,
-    stock: 3,
-    action: <Link to="/admin/product/2838">Manage</Link>,
-  },
-];
+  const { isLoading, isError, error, data } = useAllProductQuery(userId!);
 
-// interface DashboardTableProps {
-//   data: DataType[];
-// }
+  const [rows, setRows] = useState<DataType[]>([]);
 
-const Products: React.FC = () => {
-  const TableComponent = TableHOC<DataType>({
+  useEffect(() => {
+    if (isError) {
+      const err = error as CustomError;
+      toast.error(err.data.message);
+    }
+  }, [isError, error]);
+
+  useEffect(() => {
+    if (data) {
+      setRows(
+        data.products.map((i) => ({
+          photo: <img src={`${server}/${i.photo}`} />,
+          name: i.name,
+          price: i.price,
+          stock: i.stock,
+          action: <Link to={`/admin/product/${i._id}`}>Manage</Link>,
+        }))
+      );
+    }
+  }, [data]);
+
+  const Table = TableHOC<DataType>({
     columns,
-    data: productData,
-    containerClassName: "transaction-box",
-    showPagination: true,
+    data: rows,
+    showPagination: rows.length > 6,
   });
+
   return (
     <div className="admin-container">
       <AdminSidebar />
-      <main>
-        <TableComponent />
-        <Link to="/admin/product/new" className="create-product-btn">
-          <FaPlus />
-        </Link>
-      </main>
+      <main>{isLoading ? <Skeleton length={20} /> : <Table />}</main>
+      <Link to="/admin/product/new" className="create-product-btn">
+        <FaPlus />
+      </Link>
     </div>
   );
 };

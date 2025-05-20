@@ -18,14 +18,12 @@ import {
 interface TableHOCProps<T> {
   columns: ColumnDef<T>[];
   data: T[];
-  containerClassName: string;
   showPagination?: boolean;
 }
 
 function TableHOC<T extends object>({
   columns,
   data,
-  containerClassName,
   showPagination = false,
 }: TableHOCProps<T>) {
   return function TableComponent() {
@@ -45,7 +43,7 @@ function TableHOC<T extends object>({
     const { pagination } = table.getState();
 
     return (
-      <div className={containerClassName}>
+      <div className="dashboard-product-box">
         {/* <h2 className="heading">{heading}</h2> */}
 
         <table className="table">
@@ -77,12 +75,10 @@ function TableHOC<T extends object>({
                 <tr key={row.id}>
                   {row.getVisibleCells().map((cell) => (
                     <td key={cell.id}>
-                      {cell.column.columnDef.cell
-                        ? flexRender(
-                            cell.column.columnDef.cell,
-                            cell.getContext()
-                          )
-                        : (cell.getValue() as React.ReactNode)}
+                      {flexRender(
+                        cell.column.columnDef.cell,
+                        cell.getContext()
+                      )}
                     </td>
                   ))}
                 </tr>
