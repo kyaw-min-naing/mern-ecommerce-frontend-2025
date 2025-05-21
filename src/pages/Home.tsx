@@ -1,6 +1,5 @@
 import { Link } from "react-router-dom";
 import ProductCard from "../components/ProductCard";
-// import macbook from "../assets/images/macbook-2.jpg";
 import { useLatestProductQuery } from "../redux/api/productAPI";
 import toast from "react-hot-toast";
 import { Skeleton } from "../components/Loader";
