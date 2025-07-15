@@ -105,8 +105,7 @@ function TableHOC<T extends object>({
               Prev
             </button>
             <span>
-              {((pagination.pageIndex as number) + 1).toString()} of{" "}
-              {table.getPageCount()}
+              Page {((pagination.pageIndex as number) + 1).toString()}
             </span>
             <button
               disabled={!table.getCanNextPage()}

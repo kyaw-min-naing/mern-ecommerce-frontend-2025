@@ -6,6 +6,7 @@
 @use "shipping";
 @use "login";
 @use "search";
+@use "product-details";
 @use "admin-styles/dashboard";
 @use "admin-styles/products";
 @use "admin-styles/chart";
@@ -31,6 +32,13 @@ body {
 a {
   text-decoration: none;
   color: black;
+}
+
+button {
+  &:disabled {
+    cursor: not-allowed !important;
+    opacity: 0.5;
+  }
 }
 
 .red {
@@ -62,8 +70,14 @@ a {
 }
 
 .header {
-  @include mixin.flex(row, flex-end, stretch, 1.2rem);
-  padding: 1rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1.5rem 10%;
+  border-bottom: 1px solid #eee;
+  background-color: #fff;
+  width: 100%;
+  box-sizing: border-box;
   a {
     color: variables.$color2;
     letter-spacing: 2px;
@@ -71,6 +85,34 @@ a {
 
     &:hover {
       color: variables.$color3;
+    }
+  }
+
+  .left-icons,
+  .right-icons {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+
+    .icon {
+      margin-left: 16px;
+      cursor: pointer;
+    }
+  }
+
+  .nav-links {
+    display: flex;
+    gap: 20px;
+    justify-content: center;
+
+    a {
+      text-decoration: none;
+      color: #111;
+      font-weight: 500;
+
+      &:hover {
+        text-decoration: underline;
+      }
     }
   }
 
@@ -249,7 +291,7 @@ a {
   cursor: pointer;
   color: black;
   position: fixed;
-  top: 1rem;
+  top: 1.2rem;
   left: 1rem;
   font-size: 2rem;
   background-color: white;
@@ -258,16 +300,10 @@ a {
 }
 
 #close-sidebar {
-  width: 80%;
-  margin: 1rem auto;
-  display: block;
-  padding: 0.75rem;
   border: none;
-  outline: none;
-  cursor: pointer;
-  background-color: rgb(168, 2, 2);
-  color: white;
-  border-radius: 10px;
+  background: white;
+  margin-left: 8rem;
+  font-size: 1.5rem;
 }
 
 .loader {

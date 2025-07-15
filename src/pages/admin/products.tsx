@@ -4,11 +4,10 @@ import { ColumnDef } from "@tanstack/react-table";
 import { Link } from "react-router-dom";
 import { FaPlus } from "react-icons/fa";
 import { useSelector } from "react-redux";
-// import { UserReducerInitialState } from "../../types/reducer-types";
 import { useAllProductQuery } from "../../redux/api/productAPI";
 import { CustomError } from "../../types/api-types";
 import toast from "react-hot-toast";
-import { RootState, server } from "../../redux/store";
+import { RootState } from "../../redux/store";
 import { Skeleton } from "../../components/Loader";
 import TableHOC from "../../components/admin/TableHOC";
 
@@ -47,6 +46,7 @@ const columns: ColumnDef<DataType>[] = [
 
 const Products = () => {
   const { user } = useSelector((state: RootState) => state.userReducer);
+  console.log("user", user);
 
   const userId = user?._id;
 
@@ -54,18 +54,16 @@ const Products = () => {
 
   const [rows, setRows] = useState<DataType[]>([]);
 
-  useEffect(() => {
-    if (isError) {
-      const err = error as CustomError;
-      toast.error(err.data.message);
-    }
-  }, [isError, error]);
+  if (isError) {
+    const err = error as CustomError;
+    toast.error(err.data.message);
+  }
 
   useEffect(() => {
     if (data) {
       setRows(
         data.products.map((i) => ({
-          photo: <img src={`${server}/${i.photo}`} />,
+          photo: <img src={i.photos?.[0]?.url} />,
           name: i.name,
           price: i.price,
           stock: i.stock,

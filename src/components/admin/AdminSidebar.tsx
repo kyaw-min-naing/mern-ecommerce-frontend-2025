@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import { IconType } from "react-icons";
 import { AiFillFileText } from "react-icons/ai";
+import { BiMenuAltLeft } from "react-icons/bi";
 import {
   FaChartBar,
   FaChartLine,
@@ -8,8 +9,9 @@ import {
   FaGamepad,
   FaStopwatch,
 } from "react-icons/fa";
-import { GiHamburgerMenu } from "react-icons/gi";
+import { GrPrevious } from "react-icons/gr";
 import { IoIosPeople } from "react-icons/io";
+import { MdDiscount } from "react-icons/md";
 import {
   RiCoupon3Fill,
   RiDashboardFill,
@@ -41,7 +43,7 @@ const AdminSidebar = () => {
     <>
       {phoneActive && (
         <button id="hamburger" onClick={() => setShowModal(true)}>
-          <GiHamburgerMenu />
+          <BiMenuAltLeft />
         </button>
       )}
       <aside
@@ -58,16 +60,18 @@ const AdminSidebar = () => {
             : {}
         }
       >
-        <h2>BLANCO</h2>
+        <h2>
+          BLANCO{" "}
+          {phoneActive && (
+            <button id="close-sidebar" onClick={() => setShowModal(false)}>
+              <GrPrevious />
+            </button>
+          )}
+        </h2>
+
         <DivOne location={location} />
         <DivTwo location={location} />
         <DivThree location={location} />
-
-        {phoneActive && (
-          <button id="close-sidebar" onClick={() => setShowModal(false)}>
-            Close
-          </button>
-        )}
       </aside>
     </>
   );
@@ -100,6 +104,12 @@ const DivOne = ({ location }: { location: Location }) => (
         url="/admin/transaction"
         text="Transaction"
         Icon={AiFillFileText}
+        location={location}
+      />
+      <Li
+        url="/admin/discount"
+        text="Discount"
+        Icon={MdDiscount}
         location={location}
       />
     </ul>

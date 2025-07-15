@@ -82,7 +82,6 @@
   }
 
   > article {
-    height: 85vh;
     padding: 2rem;
     width: 100%;
     max-width: 400px;
@@ -113,7 +112,8 @@
           top: -1.5rem;
         }
 
-        > input {
+        > input,
+        > textarea {
           @include mixin.inputStyle(
             100%,
             1rem,
@@ -121,6 +121,7 @@
             1px solid rgba(13, 13, 13, 0.196)
           );
           border-radius: 5px;
+          max-height: 10rem;
         }
       }
 

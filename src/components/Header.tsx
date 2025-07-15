@@ -4,13 +4,14 @@ import {
   FaShoppingBag,
   FaSignInAlt,
   FaSignOutAlt,
-  FaUser,
+  FaUserCircle,
 } from "react-icons/fa";
 import { useState } from "react";
 import { User } from "../types/types";
 import { signOut } from "firebase/auth";
 import { auth } from "../firebase";
 import toast from "react-hot-toast";
+// import { FiMenu } from "react-icons/fi";
 
 interface PropsType {
   user: User | null;
@@ -35,44 +36,59 @@ const Header = ({ user }: PropsType) => {
 
   return (
     <nav className="header">
-      <Link onClick={() => setIsOpen(false)} to={"/"}>
-        HOME
-      </Link>
-      <Link onClick={() => setIsOpen(false)} to={"/search"}>
-        <FaSearch />
-      </Link>
-      <Link onClick={() => setIsOpen(false)} to={"/cart"}>
-        <FaShoppingBag />
-      </Link>
+      {/* <div className="left-icons">
+        <FiMenu size={25} className="icon" />
+      </div> */}
 
-      {user?._id ? (
-        <>
-          <button onClick={() => setIsOpen((prev) => !prev)}>
-            <FaUser />
-          </button>
-          <dialog open={isOpen}>
-            <div>
-              {user.role === "admin" && (
-                <Link onClick={() => setIsOpen(false)} to="/admin/dashboard">
-                  Admin
-                </Link>
-              )}
-
-              <Link onClick={() => setIsOpen(false)} to="/orders">
-                Orders
-              </Link>
-
-              <button onClick={logoutHandler}>
-                <FaSignOutAlt />
-              </button>
-            </div>
-          </dialog>
-        </>
-      ) : (
-        <Link to={"/login"}>
-          <FaSignInAlt />
+      <div className="nav-links">
+        <Link onClick={() => setIsOpen(false)} to={"/"}>
+          HOME
         </Link>
-      )}
+        <Link onClick={() => setIsOpen(false)} to={"/search"}>
+          COLLECTION
+        </Link>
+        <Link onClick={() => setIsOpen(false)} to={"/"}>
+          NEW
+        </Link>
+      </div>
+
+      <div className="right-icons">
+        <Link onClick={() => setIsOpen(false)} to={"/search"}>
+          <FaSearch size={25} className="icon" />
+        </Link>
+        <Link onClick={() => setIsOpen(false)} to={"/cart"}>
+          <FaShoppingBag size={25} className="icon" />
+        </Link>
+
+        {user?._id ? (
+          <>
+            <button onClick={() => setIsOpen((prev) => !prev)}>
+              <FaUserCircle size={25} className="icon" />
+            </button>
+            <dialog open={isOpen}>
+              <div>
+                {user.role === "admin" && (
+                  <Link onClick={() => setIsOpen(false)} to="/admin/dashboard">
+                    Admin
+                  </Link>
+                )}
+
+                <Link onClick={() => setIsOpen(false)} to="/orders">
+                  Orders
+                </Link>
+
+                <button onClick={logoutHandler}>
+                  <FaSignOutAlt />
+                </button>
+              </div>
+            </dialog>
+          </>
+        ) : (
+          <Link to={"/login"}>
+            <FaSignInAlt />
+          </Link>
+        )}
+      </div>
     </nav>
   );
 };

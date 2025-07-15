@@ -1,6 +1,6 @@
 @use "./mixin" as mixin;
 
-@media screen and (width<= 1200px) {
+@media screen and (max-width: 1250px) {
   .admin-container {
     overflow: auto;
   }
@@ -24,36 +24,66 @@
   .product-management {
     padding: 2rem;
   }
+
+  .product-details {
+    > main {
+      flex-direction: column;
+      align-items: center;
+      .product-image {
+        width: 100%;
+        padding: -20px;
+        margin: 0;
+      }
+      .product-details-info {
+        width: 100%;
+        h1 {
+          font-size: 1.8rem;
+          margin: 0.5rem 0;
+        }
+        p {
+          max-width: 90%;
+          font-size: 1rem;
+          margin: 0.5rem 0;
+        }
+      }
+    }
+  }
 }
 
-@media screen and (width<= 1100px) {
+@media (max-width: 1100px) {
   .admin-container {
     grid-template-columns: 1fr !important;
   }
 }
 
-@media screen and (width<= 768px) {
+@media screen and (max-width: 768px) {
   .cart {
-    display: block;
-    padding: 2rem;
+    display: flex !important;
+    flex-direction: column !important;
+    height: auto !important;
 
-    > main {
-      width: 100%;
-    }
+    > main,
     > aside {
-      width: 100%;
+      width: 100% !important;
+    }
+
+    // > main {
+    //   overflow-y: visible !important;
+    // }
+    > aside {
+      padding: 2rem 1rem;
     }
   }
 
-  .cartitem {
-    width: 100%;
+  .cart-item {
+    flex-direction: column;
+    align-items: flex-start;
     > img {
-      width: 3rem;
-      height: 3rem;
+      margin-bottom: 1rem;
     }
     > div {
-      flex-direction: column;
-      gap: 0;
+      margin-left: 0;
+      margin-top: 1rem;
     }
   }
 
@@ -78,6 +108,30 @@
 }
 
 @media screen and (width<= 600px) {
+  .header {
+    flex-direction: column;
+    align-items: stretch;
+    gap: 12px;
+
+    .nav-links {
+      flex-wrap: wrap;
+      justify-content: center;
+      margin-left: 23px;
+    }
+
+    .left-icons,
+    .right-icons {
+      justify-content: center;
+    }
+  }
+
+  .home > section {
+    min-width: 250px !important;
+    height: 8rem !important;
+    margin: auto;
+    background: url("../assets/images/cover.png") no-repeat center / cover;
+  }
+
   .product-management {
     flex-direction: column;
     align-items: center;
@@ -106,6 +160,20 @@
     }
     .stopwatch {
       align-items: center;
+    }
+  }
+
+  .product-details {
+    gap: 0.5rem;
+    > section:last-of-type {
+      padding: 0.8rem;
+
+      article {
+        > div {
+          flex-direction: column;
+          gap: 0.5rem;
+        }
+      }
     }
   }
 }

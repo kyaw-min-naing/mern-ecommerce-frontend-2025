@@ -1,12 +1,48 @@
 @use "admin-styles/mixin" as mixin;
 @use "./variables";
+@use "admin-styles/mediaquery";
 
 .home {
   padding: 2rem 5%;
   display: flex;
   flex-direction: column;
-  height: calc(100vh - 4rem);
+  min-height: calc(100vh - 4rem);
   width: 100%;
+
+  .home-category {
+    > select {
+      width: 100%;
+      max-width: 300px;
+      height: 1.8rem;
+      margin-top: 0.5rem;
+    }
+  }
+
+  .home-search {
+    position: relative;
+    width: 100%;
+    max-width: 300px;
+    margin: 20px 0 20px 0;
+
+    .search-icon {
+      position: absolute;
+      top: 50%;
+      left: 10px;
+      font-size: 1.5rem;
+      transform: translateY(-50%);
+      color: #292929;
+      pointer-events: none;
+    }
+
+    .search-input {
+      width: 100%;
+      padding: 10px 10px 10px 35px;
+      border: 1px solid #ccc;
+      background-color: #dcdada;
+      border-radius: 5px;
+      font-size: 16px;
+    }
+  }
 
   > section {
     width: 100%;
@@ -21,11 +57,9 @@
     @include mixin.flex(row, space-between, center);
   }
 
-  .findmore {
-    font-size: 1rem;
-  }
-
-  > main {
+  .hero {
+    text-align: flex-start;
+    padding: 40px 10px;
     width: 100%;
     flex: 1;
     display: flex;
@@ -35,54 +69,319 @@
     &::-webkit-scrollbar {
       display: none;
     }
+
+    .hero-div {
+      width: 320px;
+      height: 370px;
+
+      border-radius: 6px;
+      h3 {
+        font-size: 2.5rem;
+        line-height: 1.05;
+        span {
+          font-size: 1.2rem;
+          color: #888;
+        }
+      }
+      .shop-btn {
+        margin-top: 70px;
+        padding: 8px;
+        width: 250px;
+        border: none;
+        background: #dcdada;
+        color: black;
+        cursor: pointer;
+        display: flex;
+        justify-content: center;
+        .sp-icon {
+          margin-left: 1.5rem;
+          margin-top: 5px;
+        }
+        &:hover {
+          background-color: #ccc;
+        }
+      }
+    }
+
+    .hero-images {
+      margin-top: 24px;
+      display: flex;
+      justify-content: center;
+      gap: 16px;
+      img {
+        width: 320px;
+        height: 370px;
+        background: #ccc;
+        border-radius: 6px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 0.9rem;
+        color: #444;
+      }
+    }
+  }
+
+  .this-week-title {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0.5rem 5%;
+    font-size: 2.5rem;
+    margin-top: 5rem;
+    .findmore {
+      display: flex;
+      justify-content: center;
+      font-size: 1.2rem;
+      font-weight: 500;
+      margin-top: -5px;
+      &:hover {
+        color: #888;
+      }
+      .SM-arr {
+        margin: 7px 0 0 7px;
+      }
+    }
+  }
+
+  .main-products {
+    width: 100%;
+    flex: 1;
+    display: flex;
+    gap: 1rem;
+    overflow-x: auto;
+    margin-top: 2rem;
+
+    &::-webkit-scrollbar {
+      display: none;
+    }
+
+    .product-card {
+      width: 17.5rem;
+      height: 18rem;
+      padding: 1rem;
+      flex: none;
+      @include mixin.flex(column, flex-start, center, 4px);
+      position: relative;
+      background-color: white;
+
+      &:hover > div {
+        opacity: 1;
+      }
+
+      img {
+        @include mixin.square(calc(18.75rem - 8.75rem));
+        object-fit: cover;
+        margin: 0;
+      }
+
+      span {
+        font-weight: 700;
+        font-size: 1.1rem;
+      }
+
+      > div {
+        opacity: 0;
+        position: absolute;
+        @include mixin.square(100%);
+        top: 0;
+        left: 0;
+        background-color: #0000006b;
+        @include mixin.flex;
+        button,
+        a {
+          @include mixin.flex;
+          @include mixin.square(3rem);
+          border-radius: 100%;
+          border: none;
+          background-color: variables.$color3;
+          cursor: pointer;
+          color: variables.$color1;
+          font-size: 1.1rem;
+          transition: all 0.3s;
+          &:hover {
+            rotate: 20deg;
+          }
+        }
+      }
+    }
+  }
+
+  .xiv-collections {
+    padding: 3rem;
+
+    .xiv-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      flex-wrap: wrap;
+
+      h3 {
+        font-size: 2.5rem;
+        line-height: 1.05;
+      }
+      .xiv-actions {
+        display: flex;
+        align-items: center;
+        gap: 2rem;
+
+        .filters {
+          font-weight: 500;
+          font-size: 0.9rem;
+          cursor: pointer;
+        }
+        .sorts {
+          font-weight: 500;
+          font-size: 0.9rem;
+
+          select {
+            margin-left: 0.5rem;
+            padding: 0.25rem 0.5rem;
+            font-size: 0.9rem;
+          }
+        }
+      }
+    }
+
+    .xiv-categories {
+      display: flex;
+      gap: 1.5rem;
+      margin: 2rem 0 1rem;
+
+      button {
+        background: none;
+        border: none;
+        font-size: 1rem;
+        font-weight: 600;
+        color: #888;
+        cursor: pointer;
+        position: relative;
+        padding-bottom: 0.25rem;
+
+        &.active {
+          color: #000;
+
+          &::after {
+            content: "";
+            position: absolute;
+            width: 100%;
+            height: 2px;
+            background-color: #000;
+            bottom: 0;
+            left: 0;
+          }
+        }
+
+        &:hover {
+          color: #000;
+        }
+      }
+    }
+
+    .more-btn {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      margin-top: 1rem;
+      border: none;
+      font-weight: 600;
+      font-size: 1rem;
+      cursor: pointer;
+      color: #666;
+      transition: color 0.3s;
+
+      &:hover {
+        color: #000;
+      }
+
+      .more-btn-icon {
+        margin-top: -7px;
+        font-size: 1.5rem;
+      }
+    }
+  }
+
+  .approach {
+    background-color: #fafafa;
+    padding: 2rem;
+
+    h3 {
+      font-size: 2.5rem;
+      text-align: center;
+      margin-bottom: 1rem;
+    }
+    p {
+      max-width: 700px;
+      margin: 0 auto 2rem;
+      text-align: center;
+      color: #555;
+      font-size: 1rem;
+    }
+
+    .approach-gallery {
+      display: flex;
+      justify-content: center;
+      gap: 1rem;
+      flex-wrap: wrap;
+      margin-top: 4rem;
+
+      img {
+        width: 300px;
+        height: auto;
+        border-radius: 10px;
+        object-fit: cover;
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+      }
+      .sec-img {
+        margin: 3rem 0 -3rem 0;
+      }
+      .fot-img {
+        margin: 3rem 0 -3rem 0;
+      }
+    }
   }
 }
 
-.product-card {
-  width: 17.5rem;
+.footer {
+  background-color: #e3e0e0;
+  color: #000000;
+  display: flex;
+  justify-content: space-between;
+  margin-top: 10rem;
+  padding: 2rem 3rem;
+  flex-wrap: wrap;
   height: 18rem;
-  padding: 1rem;
-  flex: none;
-  @include mixin.flex(column, flex-start, center, 4px);
-  position: relative;
-  background-color: white;
+  // align-items: center;
 
-  &:hover > div {
-    opacity: 1;
+  .left,
+  .center,
+  .right {
+    flex: 1;
+    margin-bottom: 1rem;
   }
 
-  img {
-    @include mixin.square(calc(18.75rem - 8.75rem));
-    object-fit: cover;
-    margin: 0;
+  .left p,
+  .right p {
+    margin: 0.3rem 0;
   }
 
-  span {
-    font-weight: 700;
-    font-size: 1.1rem;
-  }
+  .center {
+    text-align: center;
 
-  > div {
-    opacity: 0;
-    position: absolute;
-    @include mixin.square(100%);
-    top: 0;
-    left: 0;
-    background-color: #0000006b;
-    @include mixin.flex;
-    button {
-      @include mixin.flex;
-      @include mixin.square(3rem);
-      border-radius: 100%;
-      border: none;
-      background-color: variables.$color3;
-      cursor: pointer;
-      color: variables.$color1;
-      font-size: 1.1rem;
-      transition: all 0.3s;
-      &:hover {
-        rotate: 20deg;
-      }
+    h4 {
+      font-size: 1.8rem;
+      margin-bottom: 0.3rem;
     }
+
+    p {
+      font-size: 0.9rem;
+      color: #aaa;
+    }
+  }
+
+  .right {
+    text-align: right;
+    font-size: 0.9rem;
   }
 }

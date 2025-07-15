@@ -1,8 +1,9 @@
 @use "admin-styles/mixin" as mixin;
 @use "./variables";
+@use "admin-styles/mediaquery";
 
 .cart {
-  padding: 2rem;
+  padding: 1.5rem;
 
   @include mixin.flex(row, unset, unset, 4rem);
 

@@ -37,12 +37,20 @@ export const productAPI = createApi({
       SearchProductsResponse,
       SearchProductsRequest
     >({
-      query: ({ price, search, sort, category }) => {
-        let base = `all?search=${search}`;
+      query: ({ price, search, sort, category, page, size }) => {
+        let base = "all";
+        const params = [];
 
-        if (price) base += `&price=${price}`;
-        if (sort) base += `&sort=${sort}`;
-        if (category) base += `&category=${category}`;
+        if (search) params.push(`search=${search}`);
+        if (sort) params.push(`sort=${sort}`);
+        if (category) params.push(`category=${category}`);
+        if (price && price < 1000000) params.push(`price=${price}`); // don't send default max
+        if (size) params.push(`size=${size}`);
+        if (page) params.push(`page=${page}`);
+
+        if (params.length > 0) {
+          base += "?" + params.join("&");
+        }
 
         return base;
       },
